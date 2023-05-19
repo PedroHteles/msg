@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>WebSocket Client</title>
+</head>
+
+<body>
+  <input id="idMatricula" type="text" placeholder="ID Matricula"><br>
+  <textarea id="mensagem" rows="4" cols="50" placeholder="Digite sua mensagem"></textarea><br>
+  <button onclick="sendMessage()">Enviar</button>
+
+  <script>
+    const socket = new WebSocket('ws://localhost:3000')
+
+    socket.onopen = function () {
+      console.log('Conexão estabelecida com o servidor WebSocket.')
+    }
+
+    socket.onmessage = function (event) {
+      console.log('Mensagem recebida do servidor:', event.data)
+    }
+
+    function sendMessage() {
+      const idMatriculaInput = document.getElementById('idMatricula')
+      const mensagemInput = document.getElementById('mensagem')
+
+      const message = {
+        idMatricula: idMatriculaInput.value,
+        mensagem: mensagemInput.value
+      }
+
+      socket.send(JSON.stringify(message))
+
+      idMatriculaInput.value = ''
+      mensagemInput.value = ''
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Socket.IO Chat Example</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <ul id="messages"></ul>
+  <form id="chat-form">
+    <input id="message-input" type="text" placeholder="Type your message...">
+    <button type="submit">Send</button>
+  </form>
+
+  <script>
+    // Connect to the server
+    var socket = io()
+
+    // Handle incoming messages
+    socket.on('chat message', function (msg) {
+      $('#messages').append($('<li>').text(msg))
+    })
+
+    // Handle form submissions
+    $('#chat-form').submit(function (e) {
+      e.preventDefault()
+      var msg = $('#message-input').val()
+      socket.emit('chat message', msg)
+      $('#message-input').val('')
+      return false
+    });
+  </script>
+</body>
+
+</html>
