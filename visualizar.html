@@ -82,7 +82,7 @@
     }
   </style>
   <script>
-    var socket = new WebSocket('ws://localhost:3000')
+    var socket = new WebSocket('ws://localhost:3000?idUsuario=123')
 
     socket.onopen = function () {
       console.log('Conexão estabelecida.')
